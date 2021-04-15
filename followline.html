@@ -15,7 +15,8 @@
   <!-- <script src="./3D/example/three.min.js"></script> -->
   <script src="https://threejs.org/build/three.js"></script>
   <!--引入轨道控件OrbitControls.js-->
-  <script src="./3D/example/OrbitControls.js"></script>
+  <!-- <script src="./3D/example/OrbitControls.js"></script> -->
+  <script src="./node_modules/three/examples/js/controls/OrbitControls.js"></script>
 </head>
  
 <body>
@@ -25,6 +26,10 @@
      * 创建场景对象
      */
     var scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x000000);
+
+    var aspect = window.innerWidth / window.innerHeight;
+    var camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000);
     /**
      * 创建一个设置重复纹理的管道
      */
@@ -33,7 +38,7 @@
       new THREE.Vector3(-70, 40, 0),
       new THREE.Vector3(70, 40, 0),
       new THREE.Vector3(80, -40, 0)
-    ],false/*是否闭合*/);
+    ],true/*是否闭合*/);
     var tubeGeometry = new THREE.TubeGeometry(curve, 100, 0.6, 50, false);
     var textureLoader = new THREE.TextureLoader();
     var texture = textureLoader.load('run.jpg');
@@ -113,9 +118,11 @@
      
          
          
-        var progress=0;
+    var progress=0;
  
-        // 渲染函数
+    
+
+    // 渲染函数
     function render() {
       renderer.render(scene, camera); //执行渲染操作
       requestAnimationFrame(render);
